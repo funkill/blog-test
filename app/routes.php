@@ -11,7 +11,19 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', [
+    'as' => 'main',
+    'uses' => 'Blog\Controller\PostsController@posts'
+]);
+
+Route::get('/posts', [
+    'as' => 'posts',
+    'uses' => 'Blog\Controller\PostsController@posts'
+]);
+
+Route::get('/posts/{post}', [
+    'as' => 'post',
+    'uses' => 'Blog\Controller\PostsController@post'
+])
+    ->where(['post' => '[\d\w\-\_\.]+'])
+;
