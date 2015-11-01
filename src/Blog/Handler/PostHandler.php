@@ -26,6 +26,12 @@ class PostHandler implements PostInterface
      */
     private $Entity;
 
+    private $rules = [
+        'title' => 'required|min:5|max:255',
+        'url' => 'min:5|max:255',
+        'body' => 'required|min:5',
+    ];
+
     public function __construct()
     {
         $this->Entity = new Post();
@@ -46,17 +52,53 @@ class PostHandler implements PostInterface
 
     public function updatePost($postId, array $data)
     {
+        /**
+         * @var Post $post
+         */
+        $post = $this->Entity->find($postId);
 
+        if (!$post) {
+            throw new NotFoundHttpException();
+        }
+
+        $filteredData = array_only($data, array_keys($this->rules));
+
+        $this->validateData($filteredData);
+
+        return $post->update($filteredData);
     }
 
     public function createPost($authorId, array $data)
     {
+        $filteredData = array_only($data, array_keys($this->rules));
 
+        $this->validateData($filteredData);
+
+        $this->Entity->setRawAttributes($filteredData);
+        $this->Entity->author_id = $authorId;
+
+        if (!$this->Entity->save()) {
+            throw new \Exception();
+        }
+
+        return $this->Entity->id;
+    }
+
+    /**
+     * @param array $filteredData
+     */
+    private function validateData(array $filteredData)
+    {
+        $validator = Validator::make($filteredData, $this->rules);
+
+        if ($validator->fails()) {
+            throw new InvalidFormException($validator->messages());
+        }
     }
 
     public function deletePost($postId)
     {
-
+        return $this->Entity->findOrFail($postId)->delete();
     }
 
 }

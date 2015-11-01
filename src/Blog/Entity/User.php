@@ -39,17 +39,4 @@ class User extends EntityAbstract implements UserInterface, RemindableInterface
         return $this->hasMany(Post::class, 'author_id', 'id');
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_role');
-    }
-
-    /**
-     * @return int[]
-     */
-    public function getRoleIds()
-    {
-        return $this->roles()->getRelatedIds();
-    }
-
 }
