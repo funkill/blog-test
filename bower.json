@@ -1,0 +1,22 @@
+{
+  "name": "blog",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "funkill <funkill2@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "bootstrap-sass-official#~3.3.5"
+  }
+}

@@ -1,0 +1,31 @@
+@import "bootstrap";
+.container {
+  width: 900px;
+}
+.admin .container {
+  width: 1200px;
+}
+.center {
+  text-align: center;
+}
+.navbar {
+  border-radius: 0;
+}
+
+body > .navbar:last-child {
+  margin-bottom: 0;
+}
+.tag:hover {
+  text-decoration: none;
+}
+.auth-form {
+  width: 600px;
+  margin: 0 auto;
+}
+ul.nav {
+  margin-bottom: 20px;
+}
+
+body > .container {
+  margin-bottom: $navbar-height;
+}
