@@ -20,6 +20,15 @@ use Illuminate\Support\Facades\View;
 class UsersController extends \BaseController
 {
 
+    public function __construct()
+    {
+        $this->beforeFilter(function() {
+            if (!App::make('user')->can('manage_users')) {
+                return Redirect::route('403');
+            }
+        });
+    }
+
     /**
      * @return UserInterface
      */

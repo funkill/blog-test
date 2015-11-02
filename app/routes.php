@@ -155,3 +155,8 @@ Route::post('/admin/posts/{post}/delete', [
 ])
     ->where(['post' => '\d+'])
 ;
+
+Route::get('/403', [
+    'as' => '403',
+    'uses' => 'Blog\Controller\Errors@e403',
+]);

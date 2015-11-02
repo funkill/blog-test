@@ -64,4 +64,20 @@ interface UserInterface
      */
     public function deleteUser($userId);
 
+    /**
+     * Is user has role
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function has($role);
+
+    /**
+     * Is user can do this
+     *
+     * @param string $permission
+     * @return bool
+     */
+    public function can($permission);
+
 }

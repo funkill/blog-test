@@ -20,6 +20,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class PostsController extends \BaseController
 {
 
+    public function __construct()
+    {
+        $this->beforeFilter(function() {
+            if (!App::make('user')->can('manage_posts')) {
+                return Redirect::route('403');
+            }
+        });
+    }
+
     /**
      * @return PostInterface
      */

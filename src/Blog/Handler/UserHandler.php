@@ -102,4 +102,29 @@ class UserHandler implements UserInterface
         }
     }
 
+    public function has($role)
+    {
+        $user = $this->Entity->find(Auth::id());
+        foreach ($user->roles() as $roleEntity) {
+            if ($roleEntity->name === $role) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function can($permission)
+    {
+        $user = $this->Entity->find(Auth::id());
+        $userRoleIds = $user->getRoleIds();
+
+        $permission = Permission::where('name', '=', $permission)->first();
+        $permissionRoleIds = $permission->getRoleIds();
+
+        $intersect = array_intersect($userRoleIds, $permissionRoleIds);
+
+        return count($intersect) > 0;
+    }
+
 }
